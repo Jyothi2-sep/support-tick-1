@@ -1,32 +1,26 @@
-package com.example.support_ticket_system.model;
+package com.example.model;
 
 import jakarta.persistence.*;
-        import java.time.LocalDateTime;
 
-@Entity  // Marks this class as a JPA entity (database table)
-@Table(name = "tickets")  // Optional: Custom table name
+@Entity
+@Table(name = "tickets")
 public class Ticket {
 
-    @Id  // Marks this as the primary key
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increments ID
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)  // Field cannot be null
     private String title;
-
-    @Column(nullable = false, length = 500)  // Max length 500
     private String description;
-
-    @Column(nullable = false)
     private String status;
 
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    // Constructors
+    public Ticket() {}
 
-    // Default constructor (required for JPA)
-    public Ticket() {
-        this.createdAt = LocalDateTime.now(); // Set default timestamp
-        this.status = "OPEN"; // Default status
+    public Ticket(String title, String description, String status) {
+        this.title = title;
+        this.description = description;
+        this.status = status;
     }
 
     // Getters and Setters
@@ -60,13 +54,5 @@ public class Ticket {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }
